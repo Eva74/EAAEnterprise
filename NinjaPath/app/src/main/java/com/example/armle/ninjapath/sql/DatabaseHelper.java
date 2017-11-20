@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.armle.ninjapath.model.Courses;
 import com.example.armle.ninjapath.model.User;
 
 /**
@@ -25,6 +26,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_MAJOR = "user_major";
     private static final String COLUMN_USER_PASSWORD = "user_password";
 
+    private static final String TABLE_SEMESTER = "courses_table";
+    private static final String PRIMARY_KEY = "PRIMARY_KEY";
+    private static final String COL_CRN = "CRN";
+    private static final String COL_COURSE_NAME = "COURSE_NAME";
+    private static final String COL_PROFESSOR = "PROFESSOR";
+    private static final String COL_SEATS = "SEATS";
+    private static final String COL_LOCATION = "LOCATION";
+    private static final String COL_START_TIME = "START_TIME";
+    private static final String COL_END_TIME = "END_TIME";
+    private static final String COL_DAYS = "DAYS";
+
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " TEXT PRIMARY KEY, "
             + COLUMN_FIRST_NAME + " TEXT, "
@@ -35,6 +47,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
+    private String CREATE_COURSES_TABLE = "CREATE TABLE " + TABLE_SEMESTER + "("
+            + PRIMARY_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_CRN + " TEXT, "
+            + COL_COURSE_NAME + " TEXT, "
+            + COL_PROFESSOR + " TEXT, "
+            + COL_SEATS + " INTEGER, "
+            + COL_LOCATION + " TEXT, "
+            + COL_START_TIME + " TEXT, "
+            + COL_END_TIME + " TEXT, "
+            + COL_DAYS + " TEXT" + ")";
+
+    private String DROP_COURSES_TABLE = "DROP TABLE IF EXISTS " + TABLE_SEMESTER;
+
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -43,11 +68,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_COURSES_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL(DROP_USER_TABLE);
+        db.execSQL(DROP_COURSES_TABLE);
         onCreate(db);
     }
 
@@ -66,6 +93,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+    public void addCourse(Courses courses){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_CRN, courses.getCrn());
+        values.put(COL_COURSE_NAME, courses.getCourse_name());
+        values.put(COL_PROFESSOR, courses.getProfessor());
+        values.put(COL_SEATS, courses.getSeats());
+        values.put(COL_START_TIME, courses.getStart_time());
+        values.put(COL_END_TIME, courses.getEnd_time());
+        values.put(COL_DAYS, courses.getDays());
+    }
+
 
     public boolean checkUser(String email){
         String[] columns = {COLUMN_USER_ID};

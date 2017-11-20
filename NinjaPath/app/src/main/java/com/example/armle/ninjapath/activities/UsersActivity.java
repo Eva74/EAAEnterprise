@@ -10,16 +10,16 @@ import com.example.armle.ninjapath.R;
 
 public class UsersActivity extends AppCompatActivity {
 
-    private TextView textViewName;
+    //private TextView textViewName;
 
     @Override
     protected void onCreate(Bundle savedInstanceStates){
         super.onCreate(savedInstanceStates);
         setContentView(R.layout.activity_users);
-
-        textViewName = (TextView) findViewById(R.id.text1);
+        getSupportActionBar().hide();
+        /*textViewName = (TextView) findViewById(R.id.text1);
         String namefromIntent = getIntent().getStringExtra("EMAIL");
-        textViewName.setText("Welcome " + namefromIntent);
+        textViewName.setText("Welcome " + namefromIntent);*/
     }
 
 
