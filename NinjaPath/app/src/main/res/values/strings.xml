@@ -18,4 +18,12 @@
     <string name="error_password_match">Password Does Not Match</string>
     <string name="error_valid_email_password">Wrong Email or Password</string>
     <string name="success_message">Account successfully created!</string>
+    <string name="crn">CRN</string>
+    <string name="courseName">Course Name</string>
+    <string name="professor">Professor</string>
+    <string name="seats"># of Seats</string>
+    <string name="location">Location</string>
+    <string name="startTime">Start Time</string>
+    <string name="endTime">End Time</string>
+    <string name="days">Days</string>
 </resources>

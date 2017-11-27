@@ -23,6 +23,14 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".activities.SemesterCourseListActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".activities.CrudActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

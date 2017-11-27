@@ -5,15 +5,18 @@ package com.example.armle.ninjapath.model;
  */
 
 public class Courses {
+    private int id;
     private String crn;
     private String course_name;
     private String professor;
-    private String seats;
+    private int seats;
     private String location;
     private String start_time;
     private String end_time;
     private String days;
 
+    public void setId(int id){this.id = id;}
+    public int getId(){return id;}
     public void setCrn(String crn){
         this.crn = crn;
     }
@@ -32,8 +35,8 @@ public class Courses {
     public String getProfessor(){
         return professor;
     }
-    public void setSeats(String seats){ this.seats = seats;}
-    public String getSeats(){return seats; }
+    public void setSeats(int seats){ this.seats = seats;}
+    public int getSeats(){return seats; }
     public void setLocation(String location){this.location = location;}
     public String getLocation(){return location; }
     public void setStart_time(String start_time){this.start_time = start_time;}

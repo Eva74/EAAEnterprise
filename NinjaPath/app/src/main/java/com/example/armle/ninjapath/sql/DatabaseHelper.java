@@ -3,18 +3,26 @@ package com.example.armle.ninjapath.sql;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.armle.ninjapath.model.Courses;
 import com.example.armle.ninjapath.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by armle on 10/17/2017.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+
+    private DatabaseHelper DBHelper;
+    private SQLiteDatabase db;
+
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "NinjaPath.db";
     private static final String TABLE_USER = "user";
 
@@ -26,16 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_MAJOR = "user_major";
     private static final String COLUMN_USER_PASSWORD = "user_password";
 
-    private static final String TABLE_SEMESTER = "courses_table";
-    private static final String PRIMARY_KEY = "PRIMARY_KEY";
-    private static final String COL_CRN = "CRN";
-    private static final String COL_COURSE_NAME = "COURSE_NAME";
-    private static final String COL_PROFESSOR = "PROFESSOR";
-    private static final String COL_SEATS = "SEATS";
-    private static final String COL_LOCATION = "LOCATION";
-    private static final String COL_START_TIME = "START_TIME";
-    private static final String COL_END_TIME = "END_TIME";
-    private static final String COL_DAYS = "DAYS";
 
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " TEXT PRIMARY KEY, "
@@ -47,18 +45,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
-    private String CREATE_COURSES_TABLE = "CREATE TABLE " + TABLE_SEMESTER + "("
-            + PRIMARY_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COL_CRN + " TEXT, "
-            + COL_COURSE_NAME + " TEXT, "
-            + COL_PROFESSOR + " TEXT, "
-            + COL_SEATS + " INTEGER, "
-            + COL_LOCATION + " TEXT, "
-            + COL_START_TIME + " TEXT, "
-            + COL_END_TIME + " TEXT, "
-            + COL_DAYS + " TEXT" + ")";
+    private String CREATE_COURSES_TABLE = "CREATE TABLE " + CoursesContract.CoursesEntry.TABLE_NAME + "("
+            + CoursesContract.CoursesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CoursesContract.CoursesEntry.COL_CRN + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_COURSE_NAME + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_PROFESSOR + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_SEATS + " INTEGER NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_LOCATION + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_START_TIME + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_END_TIME + " TEXT NOT NULL, "
+            + CoursesContract.CoursesEntry.COL_DAYS + " TEXT NOT NULL" + ")";
 
-    private String DROP_COURSES_TABLE = "DROP TABLE IF EXISTS " + TABLE_SEMESTER;
+    private String DROP_COURSES_TABLE = "DROP TABLE IF EXISTS " + CoursesContract.CoursesEntry.TABLE_NAME;
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -94,15 +92,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
     public void addCourse(Courses courses){
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_CRN, courses.getCrn());
-        values.put(COL_COURSE_NAME, courses.getCourse_name());
-        values.put(COL_PROFESSOR, courses.getProfessor());
-        values.put(COL_SEATS, courses.getSeats());
-        values.put(COL_START_TIME, courses.getStart_time());
-        values.put(COL_END_TIME, courses.getEnd_time());
-        values.put(COL_DAYS, courses.getDays());
+        values.put(CoursesContract.CoursesEntry.COL_CRN, courses.getCrn());
+        values.put(CoursesContract.CoursesEntry.COL_COURSE_NAME, courses.getCourse_name());
+        values.put(CoursesContract.CoursesEntry.COL_PROFESSOR, courses.getProfessor());
+        values.put(CoursesContract.CoursesEntry.COL_SEATS, courses.getSeats());
+        values.put(CoursesContract.CoursesEntry.COL_LOCATION, courses.getLocation());
+        values.put(CoursesContract.CoursesEntry.COL_START_TIME, courses.getStart_time());
+        values.put(CoursesContract.CoursesEntry.COL_END_TIME, courses.getEnd_time());
+        values.put(CoursesContract.CoursesEntry.COL_DAYS, courses.getDays());
+
+        db.insert(CoursesContract.CoursesEntry.TABLE_NAME, null, values);
+
+        db.close();
+    }
+
+    public DatabaseHelper open() throws SQLException{
+        db = DBHelper.getWritableDatabase();
+        return this;
+    }
+    public void close(){
+        DBHelper.close();
+    }
+
+    public List<Courses> getAllCourses(){
+        String[] columns = {
+                CoursesContract.CoursesEntry._ID, CoursesContract.CoursesEntry.COL_CRN, CoursesContract.CoursesEntry.COL_COURSE_NAME, CoursesContract.CoursesEntry.COL_PROFESSOR, CoursesContract.CoursesEntry.COL_SEATS, CoursesContract.CoursesEntry.COL_LOCATION, CoursesContract.CoursesEntry.COL_START_TIME, CoursesContract.CoursesEntry.COL_END_TIME, CoursesContract.CoursesEntry.COL_DAYS
+        };
+
+        //sorting orders
+
+        String sortOrder = CoursesContract.CoursesEntry.COL_COURSE_NAME + " ASC";
+        List<Courses> coursesList = new ArrayList<Courses>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(CoursesContract.CoursesEntry.TABLE_NAME,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                sortOrder);
+
+        //Traversing through all rows and adding to list
+        if(cursor.moveToFirst()){
+            do{
+                Courses course = new Courses();
+                //Add the information from the columns
+                course.setCrn(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_CRN)));
+                course.setCourse_name(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_COURSE_NAME)));
+                course.setProfessor(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_PROFESSOR)));
+                course.setSeats(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_SEATS))));
+                course.setLocation(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_LOCATION)));
+                course.setStart_time(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_START_TIME)));
+                course.setEnd_time(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_END_TIME)));
+                course.setDays(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_DAYS)));
+
+                //Adding course to list
+
+                coursesList.add(course);
+
+            }while(cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+
+        return coursesList;
     }
 
 

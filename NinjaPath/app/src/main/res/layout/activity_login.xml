@@ -58,6 +58,16 @@
 
             </android.support.v7.widget.AppCompatButton>
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appCompatButtonAddToSemesterDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorPrimary"
+                android:hint="Add to Semester Database">
+
+            </android.support.v7.widget.AppCompatButton>
+
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/textViewLinkRegister"
                 android:layout_width="fill_parent"

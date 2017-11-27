@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private AppCompatButton appCompatButtonLogin;
 
+    private AppCompatButton appCompatButtonAddToSemesterDatabase;
+
     private AppCompatTextView textViewLinkRegister;
 
     private InputValidation inputValidation;
@@ -62,12 +64,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         appCompatButtonLogin = (AppCompatButton)findViewById(R.id.appCompatButtonLogin);
 
+        appCompatButtonAddToSemesterDatabase = (AppCompatButton) findViewById(R.id.appCompatButtonAddToSemesterDB);
+
         textViewLinkRegister = (AppCompatTextView) findViewById(R.id.textViewLinkRegister);
 
     }
     private void initListeners(){
 
         appCompatButtonLogin.setOnClickListener(this);
+        appCompatButtonAddToSemesterDatabase.setOnClickListener(this);
         textViewLinkRegister.setOnClickListener(this);
 
     }
@@ -88,6 +93,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.textViewLinkRegister:
                 Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intentRegister);
+                break;
+            case R.id.appCompatButtonAddToSemesterDB:
+                Intent intentAddToSemesterDB = new Intent(getApplicationContext(), CrudActivity.class);
+                startActivity(intentAddToSemesterDB);
                 break;
         }
     }
