@@ -119,7 +119,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Courses> getAllCourses(){
         String[] columns = {
-                CoursesContract.CoursesEntry._ID, CoursesContract.CoursesEntry.COL_CRN, CoursesContract.CoursesEntry.COL_COURSE_NAME, CoursesContract.CoursesEntry.COL_PROFESSOR, CoursesContract.CoursesEntry.COL_SEATS, CoursesContract.CoursesEntry.COL_LOCATION, CoursesContract.CoursesEntry.COL_START_TIME, CoursesContract.CoursesEntry.COL_END_TIME, CoursesContract.CoursesEntry.COL_DAYS
+                CoursesContract.CoursesEntry._ID,
+                CoursesContract.CoursesEntry.COL_CRN,
+                CoursesContract.CoursesEntry.COL_COURSE_NAME,
+                CoursesContract.CoursesEntry.COL_PROFESSOR,
+                CoursesContract.CoursesEntry.COL_SEATS,
+                CoursesContract.CoursesEntry.COL_LOCATION,
+                CoursesContract.CoursesEntry.COL_START_TIME,
+                CoursesContract.CoursesEntry.COL_END_TIME,
+                CoursesContract.CoursesEntry.COL_DAYS
         };
 
         //sorting orders
