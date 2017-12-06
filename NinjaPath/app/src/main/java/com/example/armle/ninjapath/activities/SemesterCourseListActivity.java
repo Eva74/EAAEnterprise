@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.armle.ninjapath.R;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  * Created by armle on 11/24/2017.
  */
 
-public class SemesterCourseListActivity extends AppCompatActivity {
+public class SemesterCourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private AppCompatActivity activity = SemesterCourseListActivity.this;
     Context context = SemesterCourseListActivity.this;
@@ -31,8 +34,8 @@ public class SemesterCourseListActivity extends AppCompatActivity {
     private ArrayList<Courses> courseList;
     private SemesterCourseRecyclerAdapter semesterCourseRecyclerAdapter;
     private DatabaseHelper databaseHelper;
-    SearchView searchBox;
-    private ArrayList<Courses> filteredList;
+    //SearchView searchBox;
+    //private ArrayList<Courses> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -76,6 +79,42 @@ public class SemesterCourseListActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(activity);
 
         getDataFromSQLite();
+    }
+
+    //added for query
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        getMenuInflater().inflate(R.menu.beneficiary_search, menu);
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query){
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        ArrayList<Courses> newList = new ArrayList<>();
+        for (Courses course : courseList) {
+            String name = course.getCourse_name().toLowerCase();
+            if (name.contains(newText)) {
+                newList.add(course);
+            }
+        }
+        semesterCourseRecyclerAdapter.setFilter(newList);
+        return true;
     }
 
 

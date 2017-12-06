@@ -77,7 +77,13 @@ public class SemesterCourseRecyclerAdapter extends RecyclerView.Adapter<Semester
     }
     @Override
     public int getItemCount(){
-        return mFilteredList.size();
+        return courseList.size();
+    }
+
+    public void setFilter(ArrayList<Courses> newList){
+        courseList = new ArrayList<>();
+        courseList.addAll(newList);
+        notifyDataSetChanged();
     }
 
 
