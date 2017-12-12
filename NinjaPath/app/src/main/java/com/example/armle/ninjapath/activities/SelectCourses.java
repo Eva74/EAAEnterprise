@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.armle.ninjapath.R;
+import com.example.armle.ninjapath.calendar.CalendarActivity;
 import com.example.armle.ninjapath.helper.InputValidation;
 import com.example.armle.ninjapath.model.ClassInfo;
 import com.example.armle.ninjapath.model.Courses;
@@ -117,7 +118,7 @@ public class SelectCourses extends AppCompatActivity implements View.OnClickList
                     return;
                 }
 
-                Intent generateSchedulesIntent = new Intent();
+                Intent generateSchedulesIntent = new Intent(activity, CalendarActivity.class);
 
                 List<ClassInfo> classInfos = new ArrayList<ClassInfo>();
                 String[] courseNames = {
@@ -131,14 +132,41 @@ public class SelectCourses extends AppCompatActivity implements View.OnClickList
                     classInfos.add(databaseHelper.getDaysandTimes(n));
                 }
 
+                generateSchedulesIntent.putExtra("COURSE1", classInfos.get(0).getClassName());
+                generateSchedulesIntent.putExtra("DAY1", classInfos.get(0).getDay());
+                generateSchedulesIntent.putExtra("ST1", classInfos.get(0).getStartTime());
+                generateSchedulesIntent.putExtra("ET1", classInfos.get(0).getEndTime());
+
+                generateSchedulesIntent.putExtra("COURSE2", classInfos.get(1).getClassName());
+                generateSchedulesIntent.putExtra("DAY2", classInfos.get(1).getDay());
+                generateSchedulesIntent.putExtra("ST2", classInfos.get(1).getStartTime());
+                generateSchedulesIntent.putExtra("ET2", classInfos.get(1).getEndTime());
+
+                generateSchedulesIntent.putExtra("COURSE3", classInfos.get(2).getClassName());
+                generateSchedulesIntent.putExtra("DAY3", classInfos.get(2).getDay());
+                generateSchedulesIntent.putExtra("ST3", classInfos.get(2).getStartTime());
+                generateSchedulesIntent.putExtra("ET3", classInfos.get(2).getEndTime());
+
+                generateSchedulesIntent.putExtra("COURSE4", classInfos.get(3).getClassName());
+                generateSchedulesIntent.putExtra("DAY4", classInfos.get(3).getDay());
+                generateSchedulesIntent.putExtra("ST4", classInfos.get(3).getStartTime());
+                generateSchedulesIntent.putExtra("ET4", classInfos.get(3).getEndTime());
+
+
                 Toast.makeText(this, "Schedule will be generated", Toast.LENGTH_SHORT).show();
 
-
-
+                emptyEditText();
+                startActivity(generateSchedulesIntent);
                 break;
         }
     }
 
+    private void emptyEditText() {
+        acTextView1.setText(null);
+        acTextView2.setText(null);
+        acTextView3.setText(null);
+        acTextView4.setText(null);
+    }
 
 
 }
