@@ -8,7 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
+import android.widget.AutoCompleteTextView;
 /**
  * Created by armle on 10/17/2017.
  */
@@ -34,6 +34,21 @@ public class InputValidation {
         return true;
     }
 
+    public boolean isInputAutoCompleteTextFilled(AutoCompleteTextView autoCompleteTextView, String message){
+        String value = autoCompleteTextView.getText().toString().trim();
+
+        if(value.isEmpty()){
+            autoCompleteTextView.setError(message);
+            hideKeyBoardFrom(autoCompleteTextView);
+            return false;
+        }
+        else{
+            autoCompleteTextView.setError(null);
+        }
+        return true;
+    }
+
+
     public boolean isInputEditTextEmail(TextInputEditText textInputEditText, TextInputLayout textInputLayout, String message){
         String value = textInputEditText.getText().toString().trim();
 
@@ -47,6 +62,7 @@ public class InputValidation {
         }
         return true;
     }
+
 
     public boolean isInputTextMatches(TextInputEditText textInputEditText, TextInputEditText textInputEditText2, TextInputLayout textInputLayout, String message) {
         String value1 = textInputEditText.getText().toString().trim();

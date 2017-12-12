@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.armle.ninjapath.model.ClassInfo;
 import com.example.armle.ninjapath.model.Courses;
 import com.example.armle.ninjapath.model.User;
 
@@ -218,6 +219,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public ClassInfo getDaysandTimes(String courseName){
+        ClassInfo classInfo = new ClassInfo();
+        String[] columns = {
+                CoursesContract.CoursesEntry.COL_START_TIME,
+                CoursesContract.CoursesEntry.COL_END_TIME,
+                CoursesContract.CoursesEntry.COL_DAYS};
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selection = CoursesContract.CoursesEntry.COL_COURSE_NAME + " = ?";
+
+        String[] selectionArgs = {courseName};
+
+        Cursor cursor = db.query(CoursesContract.CoursesEntry.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        if(cursor.moveToFirst()){
+            do{
+
+
+                classInfo.setClassName(courseName);
+                classInfo.setDay(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_DAYS)));
+                classInfo.setStartTime(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_START_TIME)));
+                classInfo.setEndTime(cursor.getString(cursor.getColumnIndex(CoursesContract.CoursesEntry.COL_END_TIME)));
+
+
+            }while(cursor.moveToNext());
+        }
+
+        return classInfo;
+    }
+
+
+
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_USER, null);
@@ -225,18 +258,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return res;
     }
-
-    //Used for query
-  /*  public void insertLabel(String label){
-        SQLiteDatabase db = this.getWriteableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, label);
-
-        //Inserting ROWS
-        db.insert(TABLE_LABELS, null values);
-        db.close();
-    } */ //No longer needed
 
     //list of course names
     public List<String> getAllCourseNames(){
