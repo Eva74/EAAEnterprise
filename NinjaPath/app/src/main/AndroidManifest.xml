@@ -38,6 +38,10 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".activities.SelectCourses"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

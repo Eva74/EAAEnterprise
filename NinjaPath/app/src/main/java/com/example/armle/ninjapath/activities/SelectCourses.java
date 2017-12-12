@@ -39,10 +39,10 @@ public class SelectCourses extends AppCompatActivity implements OnItemSelectedLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_courses);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setContentView(R.layout.content_select_courses);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        getSupportActionBar().hide();
         // ----links elements in xml to java file
 
         //Spinner element
