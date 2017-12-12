@@ -226,4 +226,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    //Used for query
+  /*  public void insertLabel(String label){
+        SQLiteDatabase db = this.getWriteableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, label);
+
+        //Inserting ROWS
+        db.insert(TABLE_LABELS, null values);
+        db.close();
+    } */ //No longer needed
+
+    //list of course names
+    public List<String> getAllCourseNames(){
+        List<String> labels = new ArrayList<String>();
+
+        //Select All Query
+        String selectQuery = " SELECT " + CoursesContract.CoursesEntry.COL_COURSE_NAME + " FROM " + CoursesContract.CoursesEntry.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //looping through all rows and adding to list
+        if(cursor.moveToFirst()){
+            do{
+                labels.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        //closing connection
+        cursor.close();
+        db.close();
+
+        //returning labels
+
+        return labels;
+
+    }
 }
