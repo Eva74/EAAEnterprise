@@ -1,123 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.armle.ninjapath.activities.SelectCourses"
-    tools:showIn="@layout/activity_select_courses">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <AutoCompleteTextView
+        android:id="@+id/dropdown1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Your Desired Courses!"
-        android:textSize="25sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
+        android:layout_marginTop="100dp"
+        android:hint="Enter Course 1">
 
-    <Button
-        android:id="@+id/generateSchedules"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="Generate Schedules"
-        android:background="@color/colorPrimary"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+    </AutoCompleteTextView>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="368dp"
+    <AutoCompleteTextView
+        android:id="@+id/dropdown2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.50" />
+        android:layout_marginTop="20dp"
+        android:hint="Enter Course 2">
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="368dp"
+    </AutoCompleteTextView>
+    <AutoCompleteTextView
+        android:id="@+id/dropdown3"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40" />
+        android:layout_marginTop="20dp"
+        android:hint="Enter Course 3">
 
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="368dp"
+    </AutoCompleteTextView>
+
+    <AutoCompleteTextView
+        android:id="@+id/dropdown4"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.30" />
+        android:layout_marginTop="20dp"
+        android:hint="Enter Course 4">
 
-    <!-- first Spinner -->
-    <Spinner
-        android:id="@+id/spinner4"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20" />
+    </AutoCompleteTextView>
 
-    <!-- Label -->
-    <TextView
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/submitCourses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="                                          Select Course"
-        android:textSize="15sp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias=".57"
-        />
+        android:layout_marginTop="30dp"
+        android:text="Submit"/>
 
-    <!-- Input Text -->
-    <EditText
-        android:id="@+id/input_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias=".68"
-        />
-<!--
-    <EditText android:id="@+id/input_label"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="EditTxt2"
-        />
- -->
-
-    <!-- Add button -->
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Course"
-        android:background="@color/colorPrimary"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias=".80" />
-
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

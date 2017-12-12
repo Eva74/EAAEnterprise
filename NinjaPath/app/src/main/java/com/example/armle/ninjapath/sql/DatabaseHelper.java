@@ -243,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String> labels = new ArrayList<String>();
 
         //Select All Query
-        String selectQuery = " SELECT " + CoursesContract.CoursesEntry.COL_COURSE_NAME + " FROM " + CoursesContract.CoursesEntry.TABLE_NAME;
+        String selectQuery = "SELECT " + CoursesContract.CoursesEntry.COL_COURSE_NAME + " FROM " + CoursesContract.CoursesEntry.TABLE_NAME;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -251,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //looping through all rows and adding to list
         if(cursor.moveToFirst()){
             do{
-                labels.add(cursor.getString(1));
+                labels.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
 
