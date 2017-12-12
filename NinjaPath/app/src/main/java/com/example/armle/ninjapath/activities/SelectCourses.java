@@ -1,4 +1,4 @@
-package com.example.armle.ninjapath;
+package com.example.armle.ninjapath.activities;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.armle.ninjapath.R;
 import com.example.armle.ninjapath.model.Courses;
 import com.example.armle.ninjapath.sql.DatabaseHelper;
 
@@ -119,7 +120,7 @@ public class SelectCourses extends AppCompatActivity implements OnItemSelectedLi
         //Showing selected spinner item
         Toast.makeText(parent.getContext(), "You selected: " + label, Toast.LENGTH_LONG).show();
                                       //Should this be + courses ^^  ?????
-    }esa
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0){
