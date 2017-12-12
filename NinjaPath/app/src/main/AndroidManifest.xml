@@ -24,7 +24,14 @@
 
         </activity>
         <activity android:name=".activities.SemesterCourseListActivity"
-            android:screenOrientation="portrait">
+
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="Semester Course Details"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
 
         </activity>
         <activity android:name=".activities.CrudActivity"
